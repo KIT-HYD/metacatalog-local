@@ -14,10 +14,7 @@ services:
       - ./data/pg_data:/var/lib/postgresql/data
 
   frontend:
-    #image: ghcr.io/hydrocode-de/metacatalog-ingest
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: ghcr.io/hydrocode-de/metacatalog-ingest:latest
     ports:
       - 8000:8000
     environment:
