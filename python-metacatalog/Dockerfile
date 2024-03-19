@@ -11,4 +11,4 @@ RUN  pip install --upgrade pip && \
   rm /data/requirements.txt
 
 WORKDIR /data
-CMD ["jupyter", "notebook", "--no-browser", "--host", "0.0.0.0", "--port", "4242"]
+CMD ["jupyter", "notebook", "--no-browser", "--allow-root", "--port", "4242"]
