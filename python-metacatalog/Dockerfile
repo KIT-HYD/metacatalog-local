@@ -7,7 +7,7 @@ COPY ./requirements.txt /data/requirements.txt
 # Install requirements as defined in the file
 
 RUN  pip install --upgrade pip && \
-  pip install -r requirements.txt && \
+  pip install -r /data/requirements.txt && \
   rm /data/requirements.txt
 
 WORKDIR /data
