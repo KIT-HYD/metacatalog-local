@@ -15,7 +15,7 @@ services:
 
   frontend:
     image: ghcr.io/hydrocode-de/metacatalog-ingest:latest
-    link:
+    links:
       - db
     ports:
       - 8000:8000
@@ -29,7 +29,7 @@ services:
     build:
       context: ./python-metacatalog
       dockerfile: Dockerfile
-    link:
+    links:
       - db
     ports:
       - 4242:4242
