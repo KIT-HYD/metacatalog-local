@@ -1,0 +1,6 @@
+metacatalog
+pandas
+xarray[complete]
+matplotlib
+pyplot
+jupyter
