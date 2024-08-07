@@ -13,6 +13,19 @@ services:
     volumes:
       - ./data/pg_data:/var/lib/postgresql/data
 
+  db-bue:
+    image: postgis/postgis:15-master
+    environment:
+      POSTGRES_USER: meta
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: metacatalog
+    expose:
+      - 5432
+    ports:
+      - 54320:5432
+    volumes:
+      - ./data/db_bue/pg_data:/var/lib/postgresql/data
+
   frontend:
     image: ghcr.io/hydrocode-de/metacatalog-ingest:latest
     links:
@@ -40,4 +53,21 @@ services:
     command: jupyter notebook --no-browser --IdentityProvider.token=${JUPYTER_TOKEN} --allow-root --port=4242
     volumes:
       - ./data/notebooks:/data
+
+  # run a jupyter server for us locally
+  jupyter-bue:
+    build:
+      context: ./python-metacatalog
+      dockerfile: Dockerfile
+    links:
+      - db
+    ports:
+      - 4243:4243
+    environment:
+      JUYPTER_TOKEN: ${JUPYTER_TOKEN}
+      METACATALOG_URI: postgresql://meta:${POSTGRES_PASSWORD}@db:54320/metacatalog
+    command: jupyter notebook --no-browser --IdentityProvider.token=${JUPYTER_TOKEN} --allow-root --port=4243
+    volumes:
+      - ./data/notebooks_bue:/data
+
 
