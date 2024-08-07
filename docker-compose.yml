@@ -50,7 +50,7 @@ services:
     environment:
       JUYPTER_TOKEN: ${JUPYTER_TOKEN}
       METACATALOG_URI: postgresql://meta:${POSTGRES_PASSWORD}@db:5432/metacatalog
-    command: jupyter notebook --no-browser --IdentityProvider.token=${JUPYTER_TOKEN} --allow-root --port=4242
+    command: jupyter notebook --no-browser --IdentityProvider.token=${JUPYTER_TOKEN} --allow-root --port=4242 --ip=0.0.0.0
     volumes:
       - ./data/notebooks:/data
 
@@ -60,13 +60,13 @@ services:
       context: ./python-metacatalog
       dockerfile: Dockerfile
     links:
-      - db
+      - db-bue
     ports:
       - 4243:4243
     environment:
       JUYPTER_TOKEN: ${JUPYTER_TOKEN}
-      METACATALOG_URI: postgresql://meta:${POSTGRES_PASSWORD}@db:54320/metacatalog
-    command: jupyter notebook --no-browser --IdentityProvider.token=${JUPYTER_TOKEN} --allow-root --port=4243
+      METACATALOG_URI: postgresql://meta:${POSTGRES_PASSWORD}@db-bue:5432/metacatalog
+    command: jupyter notebook --no-browser --IdentityProvider.token=${JUPYTER_TOKEN} --allow-root --port=4243 --ip=0.0.0.0
     volumes:
       - ./data/notebooks_bue:/data
 
